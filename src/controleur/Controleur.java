@@ -276,6 +276,11 @@ public class Controleur {
             fw = new FileWriter(get_all_json);
             fw.write(classe.getGetAllJsonPhpFile());
             fw.close();
+            // JS 
+            File js = new File(entirePath + "/data/js/" + classe.getNom().toLowerCase() + ".js");
+            fw = new FileWriter(js);
+            fw.write(classe.getJSFile());
+            fw.close();
         }
         
         //Création du controleur dans le dossier modele
