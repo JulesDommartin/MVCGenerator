@@ -371,8 +371,24 @@ public class PHPClass {
                 + "\t\tif (" + getVerifiyJSNotEmpty() + ") {\n"
                 + "\t\t\talert('Champs manquants');\n"
                 + "\t\t} else {\n"
-                + "\t\t\t"
-                + "\t\t}"
+                + "\t\t\t$.ajax({\n"
+                + "\t\t\t\turl: '../scripts/add_'" + this.nom.toLowerCase() + ".php,\n"
+                + "\t\t\t\ttype: 'POST',\n"
+                + "\t\t\t\tdata: $this.serialize(),\n"
+                + "\t\t\t\tsuccess: function(html) {\n"
+                + "\t\t\t\t\tif (html == '" + this.nom.toLowerCase() + " ajouté') {\n"
+                + "\t\t\t\t\t\talert(html);\n"
+                + "\t\t\t\t\t} else {\n"
+                + "\t\t\t\t\t\tconsole.log(html);"
+                + "\t\t\t\t\t\talert(html);"
+                + "\t\t\t\t\t}\n"
+                + "\t\t\t\t},\n"
+                + "\t\t\t\terror: function(xhr, ajaxOptions, thrownError) {\n"
+                + "\t\t\t\t\tconsole.log(xhr);\n"
+                + "\t\t\t\t\tconsole.log(thrownError);\n"
+                + "\t\t\t\t}\n"
+                + "\t\t\t});\n"
+                + "\t\t}\n"
                 + "\n"
                 + "\t});\n\n";
         return js;
@@ -388,6 +404,7 @@ public class PHPClass {
                 + getAllJSFunction()
                 + "\t};\n"
                 + "\n"
+                + addJSFunction()
                 + "});";
         return js;
     }
