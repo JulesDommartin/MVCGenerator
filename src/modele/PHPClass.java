@@ -394,6 +394,31 @@ public class PHPClass {
         return js;
     }
     
+    private String removeJSFunction() {
+        String js = "\tthis.delete" + this.nom + " = function(id) {\n"
+                + "\t\t$.ajax({\n"
+                + "\t\t\turl: '../scripts/remove_'" + this.nom.toLowerCase() + ".php,\n"
+                + "\t\t\ttype: 'POST',\n"
+                + "\t\t\tdata: {\n"
+                + "\t\t\t\tid: id"
+                + "\t\t\t},\n"
+                + "\t\t\tsuccess: function(html) {\n"
+                + "\t\t\t\tif (html == '" + this.nom.toLowerCase() + " supprimé') {\n"
+                + "\t\t\t\t\talert(html);\n"
+                + "\t\t\t\t} else {\n"
+                + "\t\t\t\t\tconsole.log(html);"
+                + "\t\t\t\t\talert(html);"
+                + "\t\t\t\t}\n"
+                + "\t\t\t},\n"
+                + "\t\t\terror: function(xhr, ajaxOptions, thrownError) {\n"
+                + "\t\t\t\tconsole.log(xhr);\n"
+                + "\t\t\t\tconsole.log(thrownError);\n"
+                + "\t\t\t}\n"
+                + "\t\t});\n"
+                + "\t};\n\n";
+        return js;
+    }
+    
     public String getJSFile() {
         String js = "$(document).ready(function () {\n"
                 + "\n"
@@ -405,6 +430,7 @@ public class PHPClass {
                 + "\t};\n"
                 + "\n"
                 + addJSFunction()
+                + removeJSFunction()
                 + "});";
         return js;
     }
